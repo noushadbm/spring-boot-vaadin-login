@@ -6,9 +6,21 @@ A Spring Boot application with Vaadin framework featuring a login page and home 
 
 - Login page with username and password authentication
 - Secure navigation to home page after successful login
-- Logout functionality
+- **Top navigation panel** with:
+   - Application name
+   - Current username display
+   - Logout button
+   - Menu toggle (hamburger icon)
+- **Left side vertical menu panel** with:
+   - Home
+   - Dashboard
+   - Users
+   - Settings
+   - Reports
+   - Messages
+- Responsive layout using Vaadin AppLayout
 - Spring Security integration
-- Responsive Vaadin UI components
+- Icon-based navigation menu
 
 ## Prerequisites
 
@@ -20,14 +32,14 @@ A Spring Boot application with Vaadin framework featuring a login page and home 
 The application comes with two pre-configured users:
 
 1. **Regular User**
-    - Username: `user`
-    - Password: `password`
-    - Role: USER
+   - Username: `user`
+   - Password: `password`
+   - Role: USER
 
 2. **Admin User**
-    - Username: `admin`
-    - Password: `admin`
-    - Roles: ADMIN, USER
+   - Username: `admin`
+   - Password: `admin`
+   - Roles: ADMIN, USER
 
 ## How to Run
 
@@ -67,14 +79,31 @@ vaadin-login-app/
 │       │       │   ├── SecurityConfiguration.java
 │       │       │   └── SecurityService.java
 │       │       └── views/
+│       │           ├── MainLayout.java
 │       │           ├── LoginView.java
-│       │           └── HomeView.java
+│       │           ├── HomeView.java
+│       │           ├── DashboardView.java
+│       │           ├── UsersView.java
+│       │           ├── SettingsView.java
+│       │           ├── ReportsView.java
+│       │           └── MessagesView.java
 │       └── resources/
 │           └── application.properties
-└── pom.xml
+├── pom.xml
+└── .gitignore
 ```
 
 ## Key Components
+
+### MainLayout.java
+- AppLayout with top navigation bar and side drawer
+- Top panel contains:
+   - Hamburger menu toggle button
+   - Application name
+   - Username display
+   - Logout button
+- Side drawer contains vertical navigation menu with icons
+- Provides consistent layout for all authenticated views
 
 ### SecurityConfiguration.java
 Configures Spring Security with:
@@ -90,9 +119,16 @@ Configures Spring Security with:
 - Redirects to home page on success
 
 ### HomeView.java
-- Welcome message with username
-- Logout button
+- Welcome page with user information
+- Uses MainLayout for consistent navigation
 - Protected route (requires authentication)
+
+### Other Views
+- **DashboardView**: Analytics and statistics
+- **UsersView**: User management
+- **SettingsView**: Application settings
+- **ReportsView**: Business reports
+- **MessagesView**: Messages and notifications
 
 ### SecurityService.java
 - Provides authentication context

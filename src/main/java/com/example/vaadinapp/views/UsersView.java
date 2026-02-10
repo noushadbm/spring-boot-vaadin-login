@@ -8,6 +8,8 @@ import com.vaadin.flow.component.checkbox.CheckboxGroupVariant;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -79,12 +81,80 @@ public class UsersView extends VerticalLayout {
                 .setHeader("Roles")
                 .setFlexGrow(1);
 
+        userGrid.addComponentColumn(user -> {
+            Button editButton = new Button(new Icon(VaadinIcon.PENCIL));
+            editButton.getElement().setAttribute("title", "Edit User");
+            editButton.addClickListener(e -> openEditUserDialog(user));
+            return editButton;
+        })
+                .setHeader("Actions")
+                .setWidth("100px")
+                .setFlexGrow(0);
+
         add(userGrid);
         refreshGrid();
     }
 
     private void refreshGrid() {
         userGrid.setItems(userService.getAllUsers());
+    }
+
+    private void openEditUserDialog(User user) {
+        Dialog dialog = new Dialog();
+        dialog.setHeaderTitle("Edit User");
+        dialog.setWidth("450px");
+
+        TextField usernameField = new TextField("Username");
+        usernameField.setValue(user.getUsername());
+        usernameField.setWidthFull();
+        usernameField.setReadOnly(true);
+        usernameField.getStyle().set("--vaadin-input-field-readonly-background", "var(--lumo-contrast-5pct)");
+
+        TextField nameField = new TextField("Full Name");
+        nameField.setValue(user.getName());
+        nameField.setWidthFull();
+        nameField.setReadOnly(true);
+        nameField.getStyle().set("--vaadin-input-field-readonly-background", "var(--lumo-contrast-5pct)");
+
+        DatePicker dobPicker = new DatePicker("Date of Birth");
+        dobPicker.setValue(user.getDob());
+        dobPicker.setWidthFull();
+
+        CheckboxGroup<String> rolesGroup = new CheckboxGroup<>();
+        rolesGroup.setLabel("Roles");
+        rolesGroup.setItems("USER", "ADMIN", "MANAGER", "EDITOR", "VIEWER");
+        rolesGroup.setValue(user.getRoles());
+        rolesGroup.addThemeVariants(CheckboxGroupVariant.LUMO_VERTICAL);
+        rolesGroup.setWidthFull();
+
+        VerticalLayout formLayout = new VerticalLayout(usernameField, nameField, dobPicker, rolesGroup);
+        formLayout.setSpacing(true);
+        formLayout.setPadding(false);
+
+        dialog.add(formLayout);
+
+        Button saveButton = new Button("Update", e -> {
+            String username = usernameField.getValue();
+            LocalDate dob = dobPicker.getValue();
+            Set<String> roles = rolesGroup.getValue();
+
+            user.setUsername(username);
+            user.setDob(dob != null ? dob : user.getDob());
+            user.setRoles(roles != null ? roles : new HashSet<>());
+
+            userService.saveUser(user);
+            refreshGrid();
+            dialog.close();
+        });
+
+        Button cancelButton = new Button("Cancel", e -> dialog.close());
+
+        HorizontalLayout buttonLayout = new HorizontalLayout(saveButton, cancelButton);
+        buttonLayout.setSpacing(true);
+        buttonLayout.setJustifyContentMode(FlexComponent.JustifyContentMode.END);
+
+        dialog.getFooter().add(buttonLayout);
+        dialog.open();
     }
 
     private void openAddUserDialog() {

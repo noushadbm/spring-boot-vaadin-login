@@ -13,7 +13,6 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.sidenav.SideNav;
 import com.vaadin.flow.component.sidenav.SideNavItem;
-import com.vaadin.flow.theme.lumo.LumoUtility;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class MainLayout extends AppLayout {
@@ -22,22 +21,20 @@ public class MainLayout extends AppLayout {
 
     public MainLayout(SecurityService securityService) {
         this.securityService = securityService;
-
         createHeader();
         createDrawer();
     }
 
     private void createHeader() {
         H1 appName = new H1("Vaadin Application");
-        appName.addClassNames(
-                LumoUtility.FontSize.LARGE,
-                LumoUtility.Margin.NONE
-        );
+        appName.getStyle()
+                .set("font-size", "var(--lumo-font-size-l)")
+                .set("margin", "0");
 
         UserDetails user = securityService.getAuthenticatedUser();
         Span username = new Span(user != null ? user.getUsername() : "Guest");
-        username.addClassNames(LumoUtility.FontSize.SMALL);
         username.getStyle()
+                .set("font-size", "var(--lumo-font-size-s)")
                 .set("color", "var(--lumo-secondary-text-color)")
                 .set("margin-right", "1rem");
 
@@ -57,12 +54,9 @@ public class MainLayout extends AppLayout {
         header.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
         header.expand(appName);
         header.setWidthFull();
-        header.addClassNames(
-                LumoUtility.Padding.Vertical.NONE,
-                LumoUtility.Padding.Horizontal.MEDIUM
-        );
+        header.getStyle()
+                .set("padding", "var(--lumo-space-s) var(--lumo-space-m)");
 
-        // Add user section to the right side of header
         header.add(userSection);
 
         addToNavbar(header);
@@ -71,7 +65,6 @@ public class MainLayout extends AppLayout {
     private void createDrawer() {
         SideNav nav = new SideNav();
 
-        // Create menu items with icons
         SideNavItem homeItem = new SideNavItem("Home", HomeView.class, VaadinIcon.HOME.create());
         SideNavItem dashboardItem = new SideNavItem("Dashboard", DashboardView.class, VaadinIcon.DASHBOARD.create());
         SideNavItem usersItem = new SideNavItem("Users", UsersView.class, VaadinIcon.USERS.create());

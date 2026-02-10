@@ -1,0 +1,89 @@
+[theme="dark"] {
+    --lumo-base-color: #1e1e2f;
+    --lumo-primary-color: #4caf50;
+    --lumo-primary-color-50pct: rgba(76, 175, 80, 0.5);
+    --lumo-primary-color-10pct: rgba(76, 175, 80, 0.1);
+    --lumo-secondary-primary-color: #81c784;
+    --lumo-tertiary-primary-color: #a5d6a7;
+    --lumo-error-color: #f44336;
+    --lumo-error-color-50pct: rgba(244, 67, 54, 0.5);
+    --lumo-success-color: #4caf50;
+    --lumo-success-color-50pct: rgba(76, 175, 80, 0.5);
+    --lumo-warning-color: #ff9800;
+    --lumo-text-primary: #ffffff;
+    --lumo-text-secondary: rgba(255, 255, 255, 0.7);
+    --lumo-disabled-text-color: rgba(255, 255, 255, 0.5);
+    --lumo-divider-color: rgba(255, 255, 255, 0.2);
+    --lumo-contrast-5pct: rgba(255, 255, 255, 0.05);
+    --lumo-contrast-10pct: rgba(255, 255, 255, 0.1);
+    --lumo-contrast-20pct: rgba(255, 255, 255, 0.2);
+    --lumo-contrast-50pct: rgba(255, 255, 255, 0.5);
+    --lumo-shade: #12121f;
+    --lumo-tint: #2d2d45;
+    --lumo-shade-5pct: rgba(18, 18, 31, 0.05);
+    --lumo-tint-5pct: rgba(45, 45, 69, 0.05);
+    --lumo-header-background-color: #252540;
+    --lumo-dialog-overlay-background-color: rgba(0, 0, 0, 0.6);
+}
+
+[theme="dark"] body,
+[theme="dark"] .v-app,
+[theme="dark"] .v-overlay-container {
+    background-color: #1e1e2f;
+    color: #ffffff;
+}
+
+[theme="dark"] .v-card {
+    background-color: #252540;
+    color: #ffffff;
+}
+
+[theme="dark"] .v-button {
+    background-color: #3d3d5c;
+    color: #ffffff;
+}
+
+[theme="dark"] .v-button:hover {
+    background-color: #4d4d6d;
+}
+
+[theme="dark"] .v-text-field,
+[theme="dark"] .v-textarea,
+[theme="dark"] .v-select {
+    background-color: #2d2d45;
+    color: #ffffff;
+}
+
+[theme="dark"] .v-grid {
+    background-color: #252540;
+}
+
+[theme="dark"] .v-grid-header {
+    background-color: #3d3d5c;
+}
+
+[theme="dark"] .v-grid-row {
+    background-color: #252540;
+}
+
+[theme="dark"] .v-grid-row:hover {
+    background-color: #3d3d5c;
+}
+
+[theme="dark"] .v-dialog {
+    background-color: #252540;
+    color: #ffffff;
+}
+
+[theme="dark"] .v-menubar {
+    background-color: #252540;
+}
+
+[theme="dark"] .v-menubar-item {
+    color: #ffffff;
+}
+
+[theme="dark"] .v-notification {
+    background-color: #3d3d5c;
+    color: #ffffff;
+}
